@@ -1,0 +1,49 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Pan/Tilt Camera Control with Motion</title>
+  <script type="text/javascript" src="/webiopi.js"></script>
+  <script type="text/javascript">
+  webiopi().ready(function() {
+    var upButton = webiopi().createButton("upButton", "上へ", function(){
+        webiopi().callMacro("up");
+    });
+    var downButton = webiopi().createButton("downButton", "下へ", function(){
+        webiopi().callMacro("down");
+    });
+    var leftButton = webiopi().createButton("leftButton", "左へ", function(){
+        webiopi().callMacro("left");
+    });
+    var rightButton = webiopi().createButton("rightButton", "右へ", function(){
+        webiopi().callMacro("right");
+    });
+    var defaultButton = webiopi().createButton("defaultButton", "元の位置に戻す", function(){
+        webiopi().callMacro("default");
+    });
+
+    $("#upbar").append(upButton);
+    $("#downbar").append(downButton);
+    $("#leftbar").append(leftButton);
+    $("#rightbar").append(rightButton);
+    $("#defbar").append(defaultButton);
+  });
+  </script>
+  <style type="text/css">
+    body{
+        margin:0;padding:0;
+        }
+    button {
+        width: 200px;
+        }
+  </style>
+</head>
+<body>
+  <br>
+  <p style="text-align:center;"><img src=http://192.168.11.11:8081/ip1.html width=320 border="0" align="center"></p>
+  <div id="upbar" align="center"></div>
+  <div id="downbar" align="center"></div>
+  <div id="leftbar" align="center"></div>
+  <div id="rightbar" align="center"></div>
+  <div id="defbar" align="center"></div>
+</body>
+</html>

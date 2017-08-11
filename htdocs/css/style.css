@@ -1,0 +1,73 @@
+	/* ▼表示領域全体 */
+	div.tabbox {
+		margin: 0px auto;
+		padding: 0px;
+		width: 720px; /* 全体の横幅 */
+	}
+	/* ▼タブ部分 */
+	div.tabbox ul.tabs {
+		margin:  0px; /* 外側の余白を消す */
+		padding: 0px; /* 内側の余白を消す */
+	}
+	div.tabbox ul.tabs li {
+		margin: 0px;  /* 各項目周囲の余白をなくす */
+		padding: 0px; /* 各項目内側の余白をなくす */
+		list-style-type: none; /* 先頭記号を消す */
+		float: left;  /* リスト項目を横方向に並べる */
+		width: 150px; /* タブのデフォルトの横幅 */
+		/* 左上の角丸 */
+		background-repeat: no-repeat;
+		background-position: left top;
+	}
+	div.tabbox ul.tabs a {
+		display: block;  /* ブロックレベルに */
+		padding: 5px 0px;      /* 内側の余白 */
+		height: 20px;          /* タブの高さ */
+		text-align: center;    /* 中央寄せ */
+		text-decoration: none; /* 下線を消す */
+		/* 右上の角丸 */
+		background-repeat: no-repeat;
+		background-position: right top;
+	}
+	/* ▼標準のタブ色 */
+	div.tabbox ul.tabs li.tab {
+		border-top: 1px solid gray;
+		border-left: 1px solid gray;
+		border-right: 1px solid gray;
+		background-color: darkgray; /* 黒色 */
+	}
+	div.tabbox ul.tabs a:link,
+	div.tabbox ul.tabs a:visited {
+		color: black; /* タブの文字色 */
+	}
+	div.tabbox ul.tabs a:hover {
+		/* タブにマウスを載せた際の装飾 */
+		font-weight: bold; 			/* 太字 */
+	}
+	/* ▼タブに対応するボックス領域 */
+	div.tabbox div.tab {
+		height: 780px;  /* ボックスの横幅 */
+		overflow: auto; /* スクロールバー自動表示 */
+		clear: left;    /* 回り込み解除(必須) */
+	}
+	div.tabbox div#tab1 {
+		/* タブ１の中身(枠線と背景色) */
+		border: 5px ridge whitesmoke; background-color: #ffffff;
+	}
+	div.tabbox div#tab2 {
+		/* タブ２の中身(枠線と背景色) */
+		border: 5px ridge whitesmoke; background-color: #ffffff;
+	}
+	div.tabbox div#tab3 {
+		/* タブ３の中身(枠線と背景色) */
+		border: 5px ridge whitesmoke; background-color: #ffffff;
+	}
+	div.tabbox div#tab4 {
+		/* タブ４の中身(枠線と背景色) */
+		border: 5px ridge whitesmoke; background-color: #ffffff;
+	}
+	/* ▼ボックス内部の装飾(今回のテクニックとは無関係) */
+	div.tabbox div.tab p { margin: 0.5em; }
+	div.tabbox div.tab p.tabhead {
+		font-weight: bold; border-bottom: 3px double gray;
+	}

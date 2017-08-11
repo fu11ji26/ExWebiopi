@@ -1,0 +1,142 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<title>融雪装置</title>
+	<!--現在時刻を取得して表示するスクリプト-->
+	<div style = "margin: 0 auto; padding :0px; margin-top :0px; margin-bottom: 5px; border:1px; background-color: #87CEFA;width:680px;height:30;">
+	<font size = "5" color = #ffffff>
+		<p id="RealtimeClockArea2" align = "middle"><b></b></p>
+	</font>
+	</div>
+	<script type="text/javascript" src="js/timer.js"></script>
+	
+	<!--タブメニューのスクリプト-->
+	<script type="text/javascript" src="js/tab.js"></script>
+	
+	<!--タブとボックスのスタイルシート-->
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+	<!--WebIOPiマクロ-->
+	<script type="text/javascript" src="/webiopi.js"></script>
+	<script type="text/javascript" src="js/macro.js"></script>
+	<!--マクロボタンの大きさ-->
+	<style type="text/css">
+	.button {
+		display: inline-block;
+		width: 80px;
+		height: 30px;
+		text-align: center;
+		text-decoration: none;
+		line-height: 30px;
+		outline: none;
+		background-color: #333;
+		color: #fff;
+		padding 10px 10px;
+	}
+	.button::before,
+	.button::after {
+		position: absolute;
+		z-index: -1;
+		display: block;
+		content: '';
+	}
+	.button,
+	.button::before,
+	.button::after {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		-webkit-transition: all .3s;
+		transition: all .3s;
+	}
+	.button:hover {
+		background-color: #59b1eb;
+	}
+	</style>
+</head>
+
+<body>
+<div class="tabbox">
+	<ul class="tabs">
+		<li class="tab" id="tabA"><a href="#tab1" onclick="FocusTab('tabA','whitesmoke','darkorange'); ChangeTab('tab1'); return false;">ホーム</a></li>
+		<li class="tab" id="tabB"><a href="#tab2" onclick="FocusTab('tabB','whitesmoke','darkorange'); ChangeTab('tab2'); return false;">自動モード</a></li>
+		<li class="tab" id="tabC"><a href="#tab3" onclick="FocusTab('tabC','whitesmoke','darkorange'); ChangeTab('tab3'); return false;">手動モード</a></li>
+		<li class="tab" id="tabD"><a href="#tab4" onclick="FocusTab('tabD','whitesmoke','darkorange'); ChangeTab('tab4'); return false;">タブ4</a></li>
+	</ul>
+	<div id="tab1" class="tab">
+		<p class="tabhead">ホーム</p>
+		<p>タブに対応するボックス（中身）</p>
+	</div>
+	<div id="tab2" class="tab">
+		<p class="tabhead">自動モード</p>
+		<div align = 'center'>
+		<p style="text-align:center;"><img src=http://192.168.11.11:8081/ip1.html width=480 border="0" align="center"></p>
+		</div>
+		<form name = "nowStatus">
+		<div align="center">
+		<br>
+		</div>
+		<div style = "margin: 0 auto; padding :0px; margin-top :5px; margin-bottom: 5px; border:1px; background-color: #C0C0C0;width:200px;height:25;" align = "center">
+			<font size = "5">状態>></font><font id = "status" size = "5" color="red">停止</font>
+		</div>
+		<div style = "margin: 0 auto; padding :0px; margin-top :0px; margin-bottom: 10px; border:1px;" align = "center">
+			<a class="button" href="#" name = "sts" onclick = "run(),btnStatus(0)"><font size = 3><b>実行</b></font></a>
+			<a class="button" href="#" name = "sts" onclick = "pause(),btnStatus(1)"><font size = 3><b>一時停止</b></font></a>
+			<a class="button" href="#" name = "sts" onclick = "stop(),btnStatus(2)"><font size = 3><b>停止</b></font></a>
+		</div>
+		<HR width="100%">
+		</form>
+		<div style = "margin: 0 auto; padding :0px; margin-top :10px;" align = 'center'>
+		<script type="text/javascript" src="js/macro.js"></script>
+		<div style = "margin: 0 auto; padding :0px; margin-bottom :10px;" align = "center">
+		<font><b>横の初期角度</b></font>
+		</div>
+		<form name="myForm1">
+			<a class="button" href="#" name = "-10" onclick = "T_offsetAngle_n10(),buttonValue1(-10)"><font size = 3>-10°</font></a>
+			<a class="button" href="#" name = "-5" onclick = "T_offsetAngle_n5(),buttonValue1(-5)"><font size = 3>-5°</font></a>
+			<a class="button" href="#" name = "-1" onclick = "T_offsetAngle_n1(),buttonValue1(-1)"><font size = 3>-1°</font></a>
+			<td colspan="2" align ="center"><input type="text" size="1" name="myLine1" value="0" disabled="disabled"style="text-align:center;"/></td>
+			<a class="button" href="#" name = "1" onclick = "T_offsetAngle_p1(),buttonValue1(1)"><font size = 3>1°</font></a>
+			<a class="button" href="#" name = "5" onclick = "T_offsetAngle_p5(),buttonValue1(5)"><font size = 3>5°</font></a>
+			<a class="button" href="#" name = "10" onclick = "T_offsetAngle_p10(),buttonValue1(10)"><font size = 3>10°</font></a>
+		</div>
+		</form>
+		<br><br>
+		<HR width="100%">
+		<div style = "margin: 0 auto; padding :0px; margin-top :10px; margin-bottom :10px;" align = "center">
+			<font><b>縦の初期角度</b></font>
+		</div>
+		<div style = "margin: 0 auto; padding :0px; margin-top :10px;" align = 'center'>
+		<form name="myForm2">
+			<a class="button" href="#" name = "10" onclick = "P_offsetAngle_p10(),buttonValue2(-10)"><font size = 3>-10°</font></a>
+						<a class="button" href="#" name = "5" onclick = "P_offsetAngle_p5(),buttonValue2(-5)"><font size = 3>-5°</font></a>
+			<a class="button" href="#" name = "1" onclick = "P_offsetAngle_p1(),buttonValue2(-1)"><font size = 3>-1°</font></a>
+			<td colspan="2" align ="center"><input type="text" size="1" name="myLine2" value="0" disabled="disabled"style="text-align:center;"/></td>
+			<a class="button" href="#" name = "-1" onclick = "P_offsetAngle_n1(),buttonValue2(1)"><font size = 3>1°</font></a>
+			<a class="button" href="#" name = "-5" onclick = "P_offsetAngle_n5(),buttonValue2(5)"><font size = 3>5°</font></a>
+			<a class="button" href="#" name = "-10" onclick = "P_offsetAngle_n10(),buttonValue2(10)"><font size = 3>10°</font></a>
+		</form>
+		</div>
+	</div>
+	<div id="tab3" class="tab">
+		<p class="tabhead">手動モード（未完成）</p>
+		<div align = 'center'>
+		<p style="text-align:center;"><img src=http://192.168.11.11:8081/ip1.html width=480 border="0" align="center"></p>
+		</div>
+	</div>
+	<div id="tab4" class="tab">
+		<p class="tabhead">空のタブ</p>
+		<div align = 'center'>
+			<span id = "pos0" align = "left"></span>
+		</div>
+	</div>
+	</div>
+</div>
+<script type="text/javascript"><!--
+   // デフォルトのタブを選択
+   FocusTab('tabA','whitesmoke');
+   ChangeTab('tab1');
+// --></script>
+</body>
+</html>
